@@ -2,4 +2,82 @@
     ViewData["Title"] = "Home";
 }
 
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Прогнозиране броя хора нужни за тип задача</h4>
+        <hr />
+        <form id="mlForm" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
 
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label text-right">Дата</label>
+                        <div class="col-sm-9">
+                            <input id="chosenMonth" type="month" class="form-control" onchange="count()"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label text-right">Брой дни в месеца</label>
+                        <div class="col-sm-9">
+                            <input id="countDays" type="number" class="form-control" readonly/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label text-right">Тип на задачата</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label text-right">Минути за обработка на задачата</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" value="0"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label text-right">Брой задачи</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" value="0"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="text-light font-weight-bold bg-info" type="submit">Прогноза</button>
+        </form>
+    </div>
+</div>
+
+<div class="card mt-2 p-3">
+    <div class="row">
+        <label class="col-sm-3 col-form-label text-right mt-2">Брой хора</label>
+        <div class="col-sm-9 mt-2">
+            <input type="text" class="form-control col-sm-3" readonly />
+        </div>
+    </div>
+</div>
+
+<script>
+    function count() {
+        var month = document.getElementById("chosenMonth").value;
+
+        var d = new Date(Date.parse(month));
+        var days = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        
+        document.getElementById("countDays").value = days;
+    }
+</script>
