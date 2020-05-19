@@ -20,7 +20,9 @@ namespace MyFirstMLProject.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new HomeOutputViewModel();
+
+            return View(model);
         }
 
         public IActionResult Privacy()

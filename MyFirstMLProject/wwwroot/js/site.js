@@ -1,4 +1,12 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function count() {
+    const month = document.getElementById("chosenMonth").value;
 
-// Write your JavaScript code.
+    const d = new Date(Date.parse(month));
+    const days = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        
+    document.getElementById("countDays").value = days;
+}
+
+function change() {
+    document.getElementById('minutes').value = document.getElementById('selectAssignment').value;
+}
