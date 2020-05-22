@@ -15,7 +15,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label text-right mt-2">Месец</label>
                         <div class="col-sm-9">
-                            <input id="chosenMonth" type="month" class="form-control mt-2" onchange="count()"/>
+                            <input id="chosenMonth" type="month" class="form-control mt-2" onchange="count()" />
                         </div>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label text-right">Дни в месеца</label>
                         <div class="col-sm-9">
-                            <input id="countDays" type="number" class="form-control text-right mt-2" value="@DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)" readonly/>
+                            <input id="countDays" type="number" class="form-control text-right mt-2" value="@DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)" readonly />
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label text-right">Минути за обработка</label>
                         <div class="col-sm-9">
-                            <input id="minutes" type="number" class="form-control text-right mt-2" value="5" readonly/>
+                            <input id="minutes" type="number" class="form-control text-right mt-2" value="5" readonly />
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label text-right">Брой задачи</label>
                         <div class="col-sm-9">
-                            <input type="number" class="form-control mt-2" value="0"/>
+                            <input type="number" class="form-control mt-2" value="0" />
                         </div>
                     </div>
                 </div>
@@ -73,8 +73,11 @@
 </div>
 
 <script>
-    const date = new Date();
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    const year = date.getFullYear();
-    document.getElementById('chosenMonth').value = `${year}-${month}`;
+    document.addEventListener('DOMContentLoaded',
+        function (e) {
+            e.preventDefault();
+
+            const monthField = document.getElementById('chosenMonth');
+            addCurrentMonth(monthField);
+        })
 </script>

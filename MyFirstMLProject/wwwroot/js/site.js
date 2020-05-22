@@ -10,3 +10,10 @@
 function change() {
     document.getElementById('minutes').value = document.getElementById('selectAssignment').value;
 }
+
+function addCurrentMonth(field) {
+    const date = new Date();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+    field.value = `${year}-${month}`;
+}
