@@ -35,8 +35,9 @@ function makePrognosis(e) {
 
     const task = document.getElementById('selectTask');
     const taskName = task.options[task.selectedIndex].text;
-    const url = '/api/PrognosisController';
+    const url = '/api/Prognosis';
     const fpis = document.getElementById('fpis');
+    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
     const inputData = {
         date: document.getElementById('chosenMonth').value,
@@ -51,10 +52,17 @@ function makePrognosis(e) {
     fetch(url, {
             method: 'post',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'X-CSRF-TOKEN': token
             },
             body: JSON.stringify(inputData)
         })
-        .then((data) => fpis.value = data)
+        .then((res) => {
+            if (res.status !== 200) {
+                throw res;
+            }
+            return res.json();
+        })
+        .then((data) => fpis.value = data.Response)
         .catch((err) => alert('Error'));
 }

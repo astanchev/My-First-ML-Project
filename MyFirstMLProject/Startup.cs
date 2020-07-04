@@ -1,17 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
 namespace MyFirstMLProject
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.ML;
+    using Models;
 
     public class Startup
     {
@@ -34,6 +30,10 @@ namespace MyFirstMLProject
             {
                 options.HeaderName = "X-CSRF-TOKEN";
             });
+
+            services.AddPredictionEnginePool<InputModel, OutputModel>()
+                .FromFile("MLModels/MLModel.zip");
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
