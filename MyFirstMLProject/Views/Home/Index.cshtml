@@ -1,4 +1,5 @@
-﻿@model HomeOutputViewModel
+﻿@using System.Linq
+@model HomeOutputViewModel
 @{
     ViewData["Title"] = "Home";
 }
@@ -15,38 +16,64 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label text-right mt-2">Месец</label>
                         <div class="col-sm-9">
-                            <input id="chosenMonth" type="month" class="form-control mt-2" onchange="count()" />
+                            <input id="chosenMonth" type="month" class="form-control mt-2" />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label text-right">Дни в месеца</label>
+                        <label class="col-sm-3 col-form-label text-right">Работни дни в месеца</label>
                         <div class="col-sm-9">
-                            <input id="countDays" type="number" class="form-control text-right mt-2" value="@DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)" readonly />
+                            <input id="countDays" type="number" class="form-control text-right mt-2" min="1" max="31" step="1" placeholder="Попълнете работни дни..."/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <input id="taskId" value="" hidden=""/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Тип</label>
+                                <div class="col-sm-9">
+                                    <select class="dropdown-item border mt-2 text-right" id="selectTask" asp-items="@(new SelectList(Model.Tasks,  "Id", "Name"))"><option>Изберете задача</option></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Минути за обработка</label>
+                                <div class="col-sm-9">
+                                    <input id="minutes" type="number" class="form-control text-right mt-2" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Отдел</label>
+                                <div class="col-sm-9">
+                                    <input id="division" type="text" class="form-control text-right mt-2" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label text-right">Звено</label>
+                                <div class="col-sm-9">
+                                    <input id="section" type="text" class="form-control text-right mt-2" readonly/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label text-right">Тип</label>
-                        <div class="col-sm-9">
-                            <select class="dropdown-item border mt-2 text-right" id="selectAssignment" asp-for="TypeAssignment" asp-items="Html.GetEnumSelectList<TypeAssignment>()" onchange="change()"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label text-right">Минути за обработка</label>
-                        <div class="col-sm-9">
-                            <input id="minutes" type="number" class="form-control text-right mt-2" value="5" readonly />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
 
             <div class="row">
                 <div class="col-md-6">
@@ -72,12 +99,22 @@
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
     document.addEventListener('DOMContentLoaded',
         function (e) {
             e.preventDefault();
 
             const monthField = document.getElementById('chosenMonth');
             addCurrentMonth(monthField);
+
+        const tasks = JSON.parse('@Json.Serialize(Model.Tasks)');;
+
+            const selectedTask = document.getElementById('selectTask');
+            selectedTask.addEventListener('change', (evt) => {
+                evt.preventDefault();
+                const taskId = parseInt(evt.target.value);
+                
+                populateTaskFields(taskId, tasks);
+            });
         })
 </script>

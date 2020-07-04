@@ -17,3 +17,15 @@ function addCurrentMonth(field) {
     const year = date.getFullYear();
     field.value = `${year}-${month}`;
 }
+
+function populateTaskFields(taskId, tasks) {
+    const division = document.getElementById('division');
+    const section = document.getElementById('section');
+    const minutes = document.getElementById('minutes');
+
+    const currentTask = tasks.find(t => t.id === taskId);
+
+    division.value = currentTask.department;
+    section.value = currentTask.section;
+    minutes.value = currentTask.minutes;
+}

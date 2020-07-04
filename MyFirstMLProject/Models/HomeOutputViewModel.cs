@@ -1,7 +1,9 @@
 ﻿namespace MyFirstMLProject.Models
 {
+    using System.Collections.Generic;
+
     public class HomeOutputViewModel
     {
-        public TypeAssignment TypeAssignment { get; set; }
+        public IEnumerable<WorkTask> Tasks { get; set; }
     }
 }

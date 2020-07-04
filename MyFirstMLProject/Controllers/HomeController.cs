@@ -20,7 +20,10 @@ namespace MyFirstMLProject.Controllers
 
         public IActionResult Index()
         {
-            var model = new HomeOutputViewModel();
+            var model = new HomeOutputViewModel
+            {
+                Tasks = TasksInfo.GetAvailableTasks()
+            };
 
             return View(model);
         }
