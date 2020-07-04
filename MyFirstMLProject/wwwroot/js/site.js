@@ -3,7 +3,7 @@
 
     const d = new Date(Date.parse(month));
     const days = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
-        
+
     document.getElementById("countDays").value = days;
 }
 
@@ -63,6 +63,7 @@ function makePrognosis(e) {
             }
             return res.json();
         })
-        .then((data) => fpis.value = data.Response)
+        .then((data) => fpis.value = data.response)
         .catch((err) => alert('Error'));
+
 }
