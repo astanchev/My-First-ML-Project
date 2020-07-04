@@ -24,15 +24,15 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label text-right">Работни дни в месеца</label>
                         <div class="col-sm-9">
-                            <input id="countDays" type="number" class="form-control text-right mt-2" min="1" max="31" step="1" placeholder="Попълнете работни дни..."/>
+                            <input id="countDays" type="number" class="form-control text-right mt-2" min="1" max="31" step="1" placeholder="Попълнете работни дни..." />
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="card">
                 <div class="card-body">
-                    <input id="taskId" value="" hidden=""/>
+                    <input id="taskId" value="" hidden="" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
@@ -46,7 +46,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label text-right">Минути за обработка</label>
                                 <div class="col-sm-9">
-                                    <input id="minutes" type="number" class="form-control text-right mt-2" readonly/>
+                                    <input id="minutes" type="number" class="form-control text-right mt-2" readonly />
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label text-right">Отдел</label>
                                 <div class="col-sm-9">
-                                    <input id="division" type="text" class="form-control text-right mt-2" readonly/>
+                                    <input id="division" type="text" class="form-control text-right mt-2" readonly />
                                 </div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label text-right">Звено</label>
                                 <div class="col-sm-9">
-                                    <input id="section" type="text" class="form-control text-right mt-2" readonly/>
+                                    <input id="section" type="text" class="form-control text-right mt-2" readonly />
                                 </div>
                             </div>
                         </div>
@@ -73,28 +73,28 @@
                 </div>
             </div>
 
-            
+
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label text-right">Брой задачи</label>
                         <div class="col-sm-9">
-                            <input type="number" class="form-control mt-2" value="0" />
+                            <input type="number" id="numberTasks" class="form-control mt-2" value="0" />
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="text-light font-weight-bold bg-info ml-4" style="width: 150px" type="submit">Прогноза</button>
+            <button class="text-light font-weight-bold bg-info ml-4" style="width: 150px" id="btnPrognosis">Прогноза</button>
         </form>
     </div>
 </div>
 
 <div class="card mt-2 p-3">
     <div class="row">
-        <label class="col-sm-3 col-form-label text-right mt-2">Брой хора</label>
+        <label class="col-sm-3 col-form-label text-right mt-2">Брой хора - FPIs</label>
         <div class="col-sm-9 mt-2">
-            <input type="text" class="form-control col-sm-3" readonly />
+            <input type="text" id="fpis" class="form-control col-sm-3" readonly />
         </div>
     </div>
 </div>
@@ -107,14 +107,16 @@
             const monthField = document.getElementById('chosenMonth');
             addCurrentMonth(monthField);
 
-        const tasks = JSON.parse('@Json.Serialize(Model.Tasks)');;
+            const tasks = JSON.parse('@Json.Serialize(Model.Tasks)');;
 
             const selectedTask = document.getElementById('selectTask');
             selectedTask.addEventListener('change', (evt) => {
                 evt.preventDefault();
                 const taskId = parseInt(evt.target.value);
-                
+
                 populateTaskFields(taskId, tasks);
             });
+
+            document.getElementById('btnPrognosis').addEventListener('click', makePrognosis);
         })
 </script>

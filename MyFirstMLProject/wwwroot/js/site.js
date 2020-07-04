@@ -29,3 +29,32 @@ function populateTaskFields(taskId, tasks) {
     section.value = currentTask.section;
     minutes.value = currentTask.minutes;
 }
+
+function makePrognosis(e) {
+    e.preventDefault();
+
+    const task = document.getElementById('selectTask');
+    const taskName = task.options[task.selectedIndex].text;
+    const url = '/api/PrognosisController';
+    const fpis = document.getElementById('fpis');
+
+    const inputData = {
+        date: document.getElementById('chosenMonth').value,
+        days: document.getElementById('countDays').value,
+        taskName: taskName,
+        minutes: document.getElementById('minutes').value,
+        department: document.getElementById('division').value,
+        section: document.getElementById('section').value,
+        numberTasks: document.getElementById('numberTasks').value
+    };
+
+    fetch(url, {
+            method: 'post',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(inputData)
+        })
+        .then((data) => fpis.value = data)
+        .catch((err) => alert('Error'));
+}
